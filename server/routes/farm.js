@@ -43,7 +43,8 @@ router.post('/', authMiddleware, async (req, res) => {
     });
   } catch (error) {
     console.error('Farm creation error:', error);
-    res.status(500).json({ error: error.message || 'Failed to create farm' });
+    const status = error.name === 'ValidationError' ? 400 : 500;
+    res.status(status).json({ error: error.message || 'Failed to create farm' });
   }
 });
 
@@ -76,7 +77,7 @@ router.put('/:id', authMiddleware, async (req, res) => {
     const farm = await Farm.findOneAndUpdate(
       { _id: req.params.id, userId: req.userId },
       req.body,
-      { new: true }
+      { new: true, runValidators: true }
     );
     if (!farm) {
       return res.status(404).json({ error: 'Farm not found' });
@@ -86,7 +87,8 @@ router.put('/:id', authMiddleware, async (req, res) => {
       farm,
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    const status = error.name === 'ValidationError' ? 400 : 500;
+    res.status(status).json({ error: error.message });
   }
 });
 
