@@ -34,40 +34,23 @@ agro-nxt/
 - Node.js (v14 or higher)
 - MongoDB (local or connection string)
 
-### Installation
+### Installation and Running
 
-1. **Backend Setup**
-```bash
-cd agro-nxt/server
-npm install
+From the project root, install dependencies and create the local server configuration:
+
+```powershell
+npm run install-all
+Copy-Item server\.env.example server\.env
 ```
 
-2. **Frontend Setup**
-```bash
-cd agro-nxt/client
-npm install
+Make sure MongoDB is running, then start both services:
+
+```powershell
+npm run dev
 ```
 
-### Running the Application
-
-1. **Start MongoDB** (if using local MongoDB)
-```bash
-mongod
-```
-
-2. **Start Backend Server**
-```bash
-cd agro-nxt/server
-npm start
-# Server runs on http://localhost:5000
-```
-
-3. **Start Frontend** (in a new terminal)
-```bash
-cd agro-nxt/client
-npm start
-# Application opens on http://localhost:3000
-```
+Open the application at http://localhost:3000. The API runs on http://localhost:5001.
+The local `server/.env` file is ignored by Git; edit it for your MongoDB URI and JWT secret.
 
 ## Features
 
@@ -188,7 +171,7 @@ Password: password123
 
 ### Server (.env)
 ```
-PORT=5000
+PORT=5001
 MONGODB_URI=mongodb://localhost:27017/agro-nxt
 JWT_SECRET=your_jwt_secret_key_change_in_production_12345
 NODE_ENV=development

@@ -19,34 +19,24 @@ macOS/Linux:
 or
 - Terminal: mongod
 
-### Step 2: Install Backend Dependencies
-1. Open Command Prompt / Terminal
-2. Navigate to server folder:
-   cd agro-nxt/server
-3. Install dependencies:
-   npm install
-4. (Optional) Seed demo data:
-   npm run seed
+### Step 2: Install Dependencies and Configure the Server
+From the project root, run:
 
-### Step 3: Install Frontend Dependencies
-1. Open another Command Prompt / Terminal
-2. Navigate to client folder:
-   cd agro-nxt/client
-3. Install dependencies:
-   npm install
+```powershell
+npm run install-all
+Copy-Item server\.env.example server\.env
+```
 
-### Step 4: Start Backend Server
-1. In the first terminal (server folder):
-   npm start
-2. You should see:
-   "AgRO NXT Server running on port 5000"
-   "MongoDB connected successfully"
+Edit `server\.env` if your MongoDB URI or JWT secret differs from the defaults.
 
-### Step 5: Start Frontend Application
-1. In the second terminal (client folder):
-   npm start
-2. Browser will automatically open http://localhost:3000
-3. If not, open browser and go to http://localhost:3000
+### Step 3: Start the Application
+Make sure MongoDB is running, then from the project root run:
+
+```powershell
+npm run dev
+```
+
+Open http://localhost:3000. The backend API runs on http://localhost:5001.
 
 ### Step 6: Login
 1. Use demo credentials:
@@ -63,10 +53,10 @@ Solution:
 - For Windows: Services > MongoDB should be running
 - For macOS: brew services list (check if mongodb-community is running)
 
-Issue: Port 5000 already in use
+Issue: Port 5001 already in use
 Solution:
-- Change PORT in server/.env to different port (e.g., 5001)
-- Or kill process using port 5000
+- Change PORT in server/.env and update the client API URL/proxy to match
+- Or stop the process using port 5001
 
 Issue: Port 3000 already in use
 Solution:
@@ -137,7 +127,7 @@ agro-nxt/
 ENVIRONMENT VARIABLES:
 
 server/.env:
-- PORT=5000
+- PORT=5001
 - MONGODB_URI=mongodb://localhost:27017/agro-nxt
 - JWT_SECRET=your_jwt_secret_key_change_in_production_12345
 - NODE_ENV=development
